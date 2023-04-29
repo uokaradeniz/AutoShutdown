@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Shutdown{
     public int time;
     Runtime runtimeInstance;
+    public int exitValue;
 
     enum TimeUnitMode {
         SECONDS, MINUTE, HOUR
@@ -36,11 +37,25 @@ public class Shutdown{
         }
     }
 
+    public void RestartWithTimer(int time) {
+        int calculatedTime = ConvertTimeUnitToSeconds(time);
+        try
+        {
+            runtimeInstance.exec("shutdown -r -t " + calculatedTime);
+        }
+        catch(IOException e)
+        {
+
+        }
+    }
+
+
     public void CancelShutdownTimer() {
         try {
-            runtimeInstance.exec("shutdown -a");
-        } catch (IOException e) {
-
+            Process process = runtimeInstance.exec("shutdown -a");
+            exitValue = process.waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
