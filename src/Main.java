@@ -10,7 +10,14 @@ public class Main {
         int x = screenSize.width / 2;
         int y = screenSize.height / 2;
         frame.setLocation(x, y);
+        frame.setResizable(false);
         frame.pack();
+
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         frame.setVisible(true);
     }
 }
